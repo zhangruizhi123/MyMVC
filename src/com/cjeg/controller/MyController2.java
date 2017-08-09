@@ -36,4 +36,9 @@ public class MyController2 {
 		return ls;
 	}
 	
+	@RequestMapper("/index")
+	public String show(HttpServletRequest request,HttpServletResponse respons){
+		return "abc.jsp";
+	}
+	
 }

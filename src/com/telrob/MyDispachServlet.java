@@ -46,8 +46,12 @@ import javax.servlet.http.HttpServletResponse;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String url=request.getRequestURI();
+			String type=request.getContentType();
+			System.out.println("请求类型:"+type+"\t请求连接："+url);
 			ann.invokeMethod(request, response);
 		} catch (Exception e) {
+			System.out.println("调用方法失败");
 			e.printStackTrace();
 		}
 	}

@@ -90,6 +90,11 @@ public class AnnotationProcess {
 						//这里没有对方法的参数进行校验,可以根据方法的参数来对方法反射进行回调
 						method.setAccessible(true);
 						Object resultObj=method.invoke(obj, new Object[]{request,response});
+						if(resultObj==null){
+							System.out.println(resultObj);
+							return;
+						}
+						//当请求体返回json时
 						if(isReturn!=null){
 							Gson gson=new Gson();
 							String json=gson.toJson(resultObj);
@@ -97,6 +102,11 @@ public class AnnotationProcess {
 							response.setCharacterEncoding("UTF-8"); 
 							PrintWriter out=response.getWriter();
 							out.write(json);
+						}else{
+							//请求返回一个视图
+							if(resultObj.getClass().isAssignableFrom(String.class)){
+								request.getRequestDispatcher("/"+(String)resultObj).forward(request, response);
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -107,7 +117,7 @@ public class AnnotationProcess {
 				}
 				
 			}else{
-				throw new Exception("无法获取url对应的链接");
+				throw new Exception("无法获取url对应的链接:"+rPath);
 			}
 		}
 	}

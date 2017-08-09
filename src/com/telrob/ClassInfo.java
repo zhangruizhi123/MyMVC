@@ -1,5 +1,8 @@
 package com.telrob;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 
  * @author ’≈»÷æ
@@ -35,5 +38,10 @@ public class ClassInfo {
 				+ annotationvalue + ", object=" + object + "]";
 	}
 	
+	public static void main(String[] args) {
+		Object obj=new  HashMap<String,String>();
+		
+		System.out.println(obj.getClass().isAssignableFrom(HashMap.class));
+	}
 	
 }
